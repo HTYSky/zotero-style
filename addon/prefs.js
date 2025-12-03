@@ -39,7 +39,8 @@ pref("extensions.zotero.__addonRef__.IFColumn.info", false);
 
 pref("extensions.zotero.__addonRef__.function.PublicationTagsColumn.enable", true);
 pref("extensions.zotero.__addonRef__.PublicationTagsColumn.fields", "sci, sciif5, eii");
-pref("extensions.zotero.__addonRef__.PublicationTagsColumn.rankColors", '#EE0000, #2F998C, #D2A500, #DA6D00, #007BF6');
+pref("extensions.zotero.__addonRef__.PublicationTagsColumn.rankColors", '#FCC8C8, #FCDCC8, #FCECC8, #FEFBC8, #e9e8e7');
+pref("extensions.zotero.__addonRef__.PublicationTagsColumn.fieldColors", 'eii=#a9dbfcff, sciwarn=#c8c8c8ff');
 pref("extensions.zotero.__addonRef__.PublicationTagsColumn.defaultColor", "#86dad1");
 pref("extensions.zotero.__addonRef__.PublicationTagsColumn.textColor", 'black');
 pref("extensions.zotero.__addonRef__.PublicationTagsColumn.sortBy", 'sci, -sciif');

@@ -707,6 +707,21 @@ export default class Views {
                 return s
               }
             }
+            // 解析字段颜色配置
+            let fieldColors: {[field: string]: string} = {}
+            try {
+              const fieldColorsString = Zotero.Prefs.get(`${config.addonRef}.${key}Column.fieldColors`) as string
+              if (fieldColorsString && fieldColorsString.trim().length > 0) {
+                fieldColorsString.split(/,\s*/).forEach((item: string) => {
+                  const [field, color] = item.split('=')
+                  if (field && color) {
+                    fieldColors[field.trim()] = color.trim()
+                  }
+                })
+              }
+            } catch (e) {
+              ztoolkit.log('解析fieldColors失败', e)
+            }
             for (let i = 0; i < fields.length; i++) {
               let field = fields[i]
               let fieldValue = data[field]
@@ -714,7 +729,8 @@ export default class Views {
               if (field in field2Info) {
                 let info = field2Info[field](fieldValue)
                 let rankIndex = info.rank - 1
-                color = rankIndex >= rankColors.length ? rankColors.slice(-1)[0] : rankColors[rankIndex]
+                // 优先使用字段特定颜色，如果没有则使用rank颜色
+                color = fieldColors[field] || (rankIndex >= rankColors.length ? rankColors.slice(-1)[0] : rankColors[rankIndex])
                 text = [getMapString(info.key), getMapString(info.value)].filter(i => i.length > 0).join(" ")
               } else {
                 if (field.toUpperCase() == fieldValue.toUpperCase()) {
@@ -795,6 +811,11 @@ export default class Views {
         {
           prefKey: `${key}Column.rankColors`,
           name: "Rank Colors",
+          type: "input"
+        },
+        {
+          prefKey: `${key}Column.fieldColors`,
+          name: "Field Colors",
           type: "input"
         },
         {
